@@ -7,27 +7,27 @@ Public Function RequeteHTTPAvecAuthentification(body As String) As String
     Dim password As String
     Dim basicAuth As String
     
-    ' URL de la ressource à récupérer
+    ' URL de la ressource Ã  rÃ©cupÃ©rer
     url = API_URL + "/rest/api/latest/issue"
     
-    ' Création de l'objet XMLHTTP
+    ' CrÃ©ation de l'objet XMLHTTP
     Dim http: Set http = CreateObject("MSXML2.ServerXMLHTTP.6.0")
     
-    ' Préparation de la requête GET
+    ' PrÃ©paration de la requÃªte GET
     http.Open "POST", url
     
     
-    ' Ajout de l'en-tête d'autorisation et de content
+    ' Ajout de l'en-tÃªte d'autorisation et de content
     http.setRequestHeader "Content-Type", "application/json"
     http.setRequestHeader "Authorization", "Bearer " + API_BEARER
     
-    ' Envoi de la requête
+    ' Envoi de la requÃªte
     http.Send body
     
-    ' Récupération de la réponse
+    ' RÃ©cupÃ©ration de la rÃ©ponse
     RequeteHTTPAvecAuthentification = http.responseText
     
-    ' Libération de l'objet XMLHTTP
+    ' LibÃ©ration de l'objet XMLHTTP
     Set xmlhttp = Nothing
 End Function
 
@@ -49,7 +49,7 @@ Public Function CreerJSON(Summary As String, Description As String, pIssueType A
     'composant 1
     Dim component As Object
     Set component = CreateObject("Scripting.Dictionary")
-    component("id") = "11228"
+    'component("id") = ""
     
     components.Add component
     
@@ -59,24 +59,23 @@ Public Function CreerJSON(Summary As String, Description As String, pIssueType A
     fields("summary") = Summary
     Set fields("issuetype") = IssueType
     Set fields("project") = project
-    Set fields("components") = components
+    'Set fields("components") = components
     fields("description") = Description
-    fields("customfield_10006") = "PSEP-117044"
     
     
     ' creation de l'objet racine
     Dim root As Object
     Set root = CreateObject("Scripting.Dictionary")
     
-    ' Ajouter des clés et des valeurs à l'objet JSON
+    ' Ajouter des clÃ©s et des valeurs Ã  l'objet JSON
     root("title") = Title
     Set root("fields") = fields
     
-    ' Convertir l'objet JSON en chaîne JSON
+    ' Convertir l'objet JSON en chaÃ®ne JSON
     Dim jsonText As String
     jsonText = JsonConverter.ConvertToJson(root, Whitespace:=3)
     
-    ' Afficher la chaîne JSON
+    ' Afficher la chaÃ®ne JSON
     ' Debug.Print jsonText
     CreerJSON = jsonText
 End Function
